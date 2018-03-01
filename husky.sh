@@ -20,7 +20,7 @@ current_dir_name=${PWD##*/}
 function init() {
 
     ## check if there are already build and deploy files
-    if [ -e husky.info ] || [ -e husky.build ]; then
+    if [ -e husky.info ] || [ -e husky.build ] || [ -e husky.deploy ]; then
         echo "There is already deployment information in this directory."
         echo "Run 'husky clean' to remove it"
         exit 1
@@ -54,6 +54,7 @@ function init() {
     ## create the files
     touch husky.info
     touch husky.build
+    touch husky.deploy
 
     ## write the information
     echo "server=$server" > husky.info
@@ -63,6 +64,10 @@ function init() {
 
     echo "#!/bin/bash" > husky.build
     echo "# Enter your production build commands here" >> husky.build
+
+    echo "#!/bin/bash" > husky.deploy
+    echo "# Enter your production deployment commands here" >> husky.deploy
+    echo "# The commands in this file will be executed on the remote server, in the remote directory so be careful with your file paths" >> husky.deploy
 
     ## done
     echo "Finished setting up deployment information"
@@ -78,6 +83,10 @@ function clean() {
     if [ -e husky.build ]; then
         rm husky.build
     fi
+
+    if [ -e husky.deploy ]; then
+        rm husky.deploy
+    fi
 }
 
 function view() {
@@ -89,6 +98,12 @@ function view() {
 
     if [ ! -e husky.build ]; then
         echo "Error: Missing husky.build file"
+        echo "Run 'husky init' to set it up"
+        exit 1
+    fi
+
+    if [ ! -e husky.deploy ]; then
+        echo "Error: Missing husky.deploy file"
         echo "Run 'husky init' to set it up"
         exit 1
     fi
@@ -151,6 +166,7 @@ function deploy() {
     read -p "Confirm deployment (y=yes, anything else=no)? " answer
     if [ $answer == "y" -o $answer == "Y" ]; then
         scp $build/* "$user@$server:$remote"
+        ssh $user@$server "cd $remote && bash -s " < husky.deploy
     fi
 }
 
