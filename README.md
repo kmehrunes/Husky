@@ -11,7 +11,7 @@ After installing Husky, you can set up the current directory by running the foll
 husky init
 ```
 
-This will prompt you to enter some information such as where your build is and where to deploy it. Upon success, you should have two files: *husky.info* and *husky.build* in the current directory.
+This will prompt you to enter some information such as where your build is and where to deploy it. Upon success, you should have three files: *husky.info*, *husky.build*, and *husky.deploy* in the current directory.
 
 #### 2. Build
 In order to make Husky build and package your deployable, you have to tell it what to do. In this file you should enter your packaging commands and make sure that their output location matches that of the build directory specified in *husky.info* in the initialization step.
