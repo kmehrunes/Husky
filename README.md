@@ -1,0 +1,2 @@
+# Husky
+Manually automate deployment
