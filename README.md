@@ -1,5 +1,5 @@
 # Husky
-Husky is a good deployment tool, he doesn't know much but he'll do what you want him to do, but you have to tell him what to do. His job is to make deploying applications easier without the need to set up some fancy stuff.
+Husky is a good deployment boy, he doesn't know much but he'll do what you want him to do, but you have to tell him what to do. His job is to make deploying applications easier without the need to set up some fancy stuff.
 
 ### Installation
 You can install Husky using the installation provided installation script, it'll prompt you to either install it only for the current user or for all users. Then it'll ask for an installation directory (if you chose to install for current user only then the default will be ~/.local/bin, otherwise /usr/bin). **Make sure that you installed it to a directory in your PATH**.
